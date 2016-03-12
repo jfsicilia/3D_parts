@@ -1,5 +1,11 @@
-// 
-// 
+//
+// Makes a joint (cylinder with slots).
+// Params:
+//   radio -- Cylinder radio.
+//   height -- Height of the cylinder.
+//   thickness -- Thickness of cylinder.
+//   slot_width -- Width of the slots of the cylinder.
+//   slot_offset -- Offset from top or bottom where the slot starts.
 //
 module _joint(radio=10, height=60, thickness=2, slot_width=1, slot_offset=6) {
 
@@ -25,12 +31,19 @@ module _joint(radio=10, height=60, thickness=2, slot_width=1, slot_offset=6) {
 }
 
 //
-//
+// Makes a joint (cylinder with slots).
+// Params:
+//   radio -- Cylinder radio.
+//   height -- Height of the cylinder.
+//   roundness -- If greater than 0 is used as the radio for smoothing edges.
+//   thickness -- Thickness of cylinder.
+//   slot_width -- Width of the slots of the cylinder.
+//   slot_offset -- Offset from top or bottom where the slot starts.
 //
 module joint(radio=10, height=38, roundness=1, thickness=2, slot_width=3, 
              slot_offset=6) {
 
-  if (debug) {
+  if (DEBUG) {
     echo ("Radio=", radio);
     echo ("Height=", height);
     echo ("Roundness=", roundness);
@@ -51,13 +64,15 @@ module joint(radio=10, height=38, roundness=1, thickness=2, slot_width=3,
     else {
       _joint(radio, height, thickness, slot_width, slot_offset);
     }
+    // Makes sockets for ball bearing.
     for (i = [-1, 1]) { 
         translate([0,0, i*(height/2-1-sqrt(2*(radio-thickness)+1))])
           sphere(r=radio-thickness+1, $fn=100, center=true);
     }
   }
 
-  if (debug) {
+  if (DEBUG) {
+    // Shows sphere that makes sockets for ball bearing.
     for (i = [-1, 1]) { 
       %translate([0,0, i*(height/2-1-sqrt(2*(radio-thickness)+1))])
         sphere(r=radio-thickness+1, $fn=100, center=true);
@@ -66,26 +81,26 @@ module joint(radio=10, height=38, roundness=1, thickness=2, slot_width=3,
 }
 
 // joint's radio.
-j_radio = 12.5;
+RADIO = 11;
 
 // joint's height.
-j_height = 60;
+HEIGHT = 60;
 
 // joint's thickness
-j_thickness = 2.5;
+THICKNESS =  2.5 ;
 
 // joint's roundness
-j_roundness = 0;
+ROUNDNESS = 0;
 
 // joint's slot width.
-j_slot_width = 1;
+SLOT_WIDTH = 1;
 
 // joint's slot offset.
-j_slot_offset = j_height/2;
+SLOT_OFFSET = HEIGHT / 3;
 
 // Show debug info on output console and draw auxiliary geometry to check.
-debug=true;
+DEBUG=true;
 
-joint(radio=j_radio, height=j_height, roundness=j_roundness, 
-      thickness=j_thickness, slot_width=j_slot_width, 
-      slot_offset=j_slot_offset);
+joint(radio=RADIO, height=HEIGHT, roundness=ROUNDNESS, 
+      thickness=THICKNESS, slot_width=SLOT_WIDTH, 
+      slot_offset=SLOT_OFFSET);
