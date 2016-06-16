@@ -1,12 +1,15 @@
 use <cylinder_with_notch.scad>
 
 module link(radio = 10, height = 30, notch_radio = 2,
-            slot_width=0.5, slot_height=10) {
+            slot_width=0.5, slot_height=10) 
+{
   
-  difference() {
+  difference() 
+  {
     cylinder_with_notch(radio, height, notch_radio);
     for (i = [-1, 1])
-      for (j = [-1, 1]) {
+      for (j = [-1, 1]) 
+      {
         // Subtract cube to make slot. 
         translate([0,0,i*(-height/2-(slot_height+10)/2+slot_height)])
           rotate([0, 0, j*45])
@@ -18,6 +21,7 @@ module link(radio = 10, height = 30, notch_radio = 2,
       }
   }
 } 
+
 // link's radio.
 RADIO = 2.5;
 
@@ -36,7 +40,8 @@ SLOT_HEIGHT = 10;
 // Show debug info on output console and draw auxiliary geometry to check.
 DEBUG=true;
 
-if (DEBUG) {
+if (DEBUG) 
+{
   echo ("Radio=", RADIO);
   echo ("Height=", HEIGHT);
   echo ("Notch radio=", NOTCH_RADIO);
