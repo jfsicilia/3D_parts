@@ -14,7 +14,8 @@ module _ball(radio=10, thickness=2, hole_radio=2) {
       translate([0,0, -2*radio/2*1.4])
         cube([2*radio+10, 2*radio+10, 2*radio], center=true);
       // Make hole on top of sphere.
-      cylinder_with_notch(radio=hole_radio, height=radio*2+10, notch_radio=0.5);
+      cylinder_with_notch(radio=hole_radio, height=radio*2+10, 
+                          notch_radio=0.5);
     }
   }
 }
@@ -22,7 +23,8 @@ module _ball(radio=10, thickness=2, hole_radio=2) {
 //
 //
 //
-module ball(radio=10, roundness=1, thickness=2, hole_radio=2, hole_notch_radio) {
+module ball(radio=10, roundness=1, thickness=2, hole_radio=2, 
+            hole_notch_radio) {
 
   if (DEBUG) {
     echo ("Radio=", radio);
@@ -33,7 +35,8 @@ module ball(radio=10, roundness=1, thickness=2, hole_radio=2, hole_notch_radio) 
 
   if (roundness > 0) {
     minkowski() {
-      _ball(radio-roundness, thickness-2*roundness, hole_radio+roundness, hole_notch_radio-roundness);
+      _ball(radio-roundness, thickness-2*roundness, hole_radio+roundness, 
+            hole_notch_radio-roundness);
       sphere(r=roundness, $fn=10, center=true);
     }
   }
